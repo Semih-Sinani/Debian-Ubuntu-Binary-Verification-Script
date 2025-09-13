@@ -65,3 +65,12 @@ for f in "${FILES[@]}"; do
       rm -rf "$tmp" "$debfile"
     fi
   fi
+
+
+    if [ -n "$pkg" ]; then
+    echo "  debsums (only errors) ->"
+    sudo debsums -s "$pkg" || echo "    debsums: (no output means no issues)"
+    echo "  dpkg -V ->"
+    sudo dpkg -V "$pkg" || echo "    dpkg -V: (no output means no differences)"
+  fi
+
