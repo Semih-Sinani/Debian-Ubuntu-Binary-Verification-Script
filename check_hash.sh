@@ -84,3 +84,7 @@ for f in "${FILES[@]}"; do
     echo "    sudo apt install --reinstall $pkg"
   fi
 done
+
+echo
+echo "== Done =="
+
