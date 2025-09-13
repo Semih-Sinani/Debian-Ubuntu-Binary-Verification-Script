@@ -74,3 +74,13 @@ for f in "${FILES[@]}"; do
     sudo dpkg -V "$pkg" || echo "    dpkg -V: (no output means no differences)"
   fi
 
+
+  echo "  strings (first 40 lines) ->"
+  sudo strings -n 6 "$f" | sed -n '1,40p' || true
+
+  if [ -n "$pkg" ]; then
+    echo
+    echo "  If differences are found, reinstall with:"
+    echo "    sudo apt install --reinstall $pkg"
+  fi
+done
