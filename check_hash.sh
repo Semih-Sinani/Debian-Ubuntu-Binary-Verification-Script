@@ -5,13 +5,11 @@ echo "== Start: Package/binary verification =="
 
 FILES=(
     #example 
-
-#   "/usr/bin/passwd"
-#   "/usr/bin/chfn"
-#   "/opt/google/chrome/chrome-sandbox"
-#   "/usr/share/code/chrome-sandbox"
-#   "/usr/lib/virtualbox/VBoxHeadless"
-
+    "/usr/bin/passwd"
+    "/usr/bin/chfn"
+    "/opt/google/chrome/chrome-sandbox"
+    "/usr/share/code/chrome-sandbox"
+    "/usr/lib/virtualbox/VBoxHeadless"
 )
 
 declare -A PKG
