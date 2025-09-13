@@ -66,5 +66,5 @@ You can modify the `FILES` array in the script to add more binaries.
 ## Usage
 
 ```bash
-chmod +x verify-binaries.sh
-./verify-binaries.sh
+chmod +x check_hash.sh
+./check_hash.sh
