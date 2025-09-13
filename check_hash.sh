@@ -39,3 +39,12 @@ for f in "${FILES[@]}"; do
     pkg=$(dpkg -S "$f" 2>/dev/null | awk -F: '{print $1}' | head -n1 || true)
   fi
   echo "  Package: ${pkg:-(not found)}"
+
+
+  ls -l "$f" || true
+  stat -c "  Size: %s  Mtime: %y  Mode: %a  UID:GID: %u:%g" "$f" || true
+
+  if [ -n "$pkg" ]; then
+    echo "  apt-cache policy ->"
+    apt-cache policy "$pkg" | sed -n '1,6p'
+  fi
