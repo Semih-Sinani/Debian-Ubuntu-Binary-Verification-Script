@@ -48,3 +48,20 @@ for f in "${FILES[@]}"; do
     echo "  apt-cache policy ->"
     apt-cache policy "$pkg" | sed -n '1,6p'
   fi
+
+
+  if [ -n "$pkg" ]; then
+    echo "  Trying to download .deb..."
+    apt-get download "$pkg" 2>/dev/null || { echo "    Could not download .deb..."; debfile=""; }
+    debfile=$(ls ${pkg}_*.deb 2>/dev/null | head -n1 || true)
+    if [ -n "$debfile" ]; then
+      tmp=$(mktemp -d)
+      dpkg-deb -x "$debfile" "$tmp"
+      pkg_inner="$tmp${f}"
+      if [ -f "$pkg_inner" ]; then
+        echo "  Found file inside package: comparing (sha256)..."
+        sha256sum "$pkg_inner" "$f"
+      fi
+      rm -rf "$tmp" "$debfile"
+    fi
+  fi
