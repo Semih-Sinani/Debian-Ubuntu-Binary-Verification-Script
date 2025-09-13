@@ -25,3 +25,17 @@ echo "[*] Installing debsums (if needed)..."
 sudo apt update -y
 sudo apt install -y debsums >/dev/null 2>&1 || true
 
+for f in "${FILES[@]}"; do
+  echo
+  echo "--------------------------------------------------"
+  echo "File: $f"
+  if [ ! -e "$f" ]; then
+    echo "  -> ERROR: File does not exist!"
+    continue
+  fi
+
+  pkg=${PKG[$f]:-}
+  if [ -z "$pkg" ]; then
+    pkg=$(dpkg -S "$f" 2>/dev/null | awk -F: '{print $1}' | head -n1 || true)
+  fi
+  echo "  Package: ${pkg:-(not found)}"
